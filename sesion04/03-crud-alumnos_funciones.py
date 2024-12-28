@@ -2,6 +2,7 @@ import os
 from time import sleep
 from matriculas.lib_alumnos import *
 
+cargar_alumnos('alumnos.txt')
 opcion = 0
 
 while(opcion < 5):

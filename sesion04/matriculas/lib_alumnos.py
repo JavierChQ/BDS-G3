@@ -1,6 +1,22 @@
 ANCHO = 50
 dic_alumnos = {}
 
+def cargar_alumnos(file_name):
+    file = open(file_name,'r')
+    str_alumnos = file.read()
+    file.close()
+    lista_alumnos = str_alumnos.splitlines()
+    for str_fila in lista_alumnos:
+        lista_fila = str_fila.split(',')
+        dic_fila = {
+            'nombre': lista_fila[1],
+            'email': lista_fila[2]
+        }
+        dic_nuevo_alumno = {
+            lista_fila[0]: dic_fila
+        }
+        dic_alumnos.update(dic_nuevo_alumno)
+
 def mostrar_mensaje(texto):
     print("=" * ANCHO)
     print(" " * 10 + texto)
