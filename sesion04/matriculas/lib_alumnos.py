@@ -17,6 +17,20 @@ def cargar_alumnos(file_name):
         }
         dic_alumnos.update(dic_nuevo_alumno)
 
+def grabar_alumnos(file_name):
+    str_alumnos = ""
+    for alumno_clave,alumno_valor in dic_alumnos.items():
+        str_alumnos += alumno_clave +','
+        for registro_clave,registro_valor in alumno_valor.items():
+            str_alumnos += registro_valor
+            if registro_clave != 'email':
+                str_alumnos += ','
+            else:
+                str_alumnos += '\n'
+    fsalida = open(file_name,'w')
+    fsalida.write(str_alumnos)
+    fsalida.close()
+
 def mostrar_mensaje(texto):
     print("=" * ANCHO)
     print(" " * 10 + texto)

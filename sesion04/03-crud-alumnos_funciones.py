@@ -20,6 +20,7 @@ while(opcion < 5):
     elif opcion == 4:
         eliminar()
     elif opcion == 5:
+        grabar_alumnos('alumnos.txt')
         mostrar_mensaje("[5] SALIR")
     else:
         mostrar_mensaje("OPCCION INVALIDA!!!")
