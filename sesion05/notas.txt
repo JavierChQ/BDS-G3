@@ -1,0 +1,2 @@
+Intalar libreria: pip install nombre_libreria
+verificar libreria: pip freeze
