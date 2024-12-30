@@ -1,2 +1,5 @@
 Intalar libreria: pip install nombre_libreria
 verificar libreria: pip freeze
+
+imagenes: pip install pillow
+audio: pip intall gTTS
