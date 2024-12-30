@@ -1,5 +1,16 @@
+LIBRERIAS
 Intalar libreria: pip install nombre_libreria
 verificar libreria: pip freeze
-
 imagenes: pip install pillow
 audio: pip intall gTTS
+
+MANEJO DE PROYECTOS CON BUENAS PRACTICAS
+1. Crear entorno virtula:
+    python -m venv venv*
+    *venv o nombre de proyecto
+2. Activar entorno:
+    source venv/Scripts/activate
+    *Desactivar: deactivate
+3. Instalacion de librerias (archivo requirements.txt)
+    crear archivo requirements.txt
+    pip install -r requirements.txt
