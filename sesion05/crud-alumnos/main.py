@@ -1,0 +1,28 @@
+import os
+from time import sleep
+from lib_alumnos import *
+
+cargar_alumnos('alumnos.txt')
+opcion = 0
+
+while(opcion < 5):
+    os.system("cls")
+    menu()
+    opcion = int(input("INGRESE OPCION : "))
+    os.system("cls")
+
+    if opcion == 1:
+        registrar()
+    elif opcion == 2:
+        mostrar()
+    elif opcion == 3:
+        actualizar()
+    elif opcion == 4:
+        eliminar()
+    elif opcion == 5:
+        grabar_alumnos('alumnos.txt')
+        mostrar_mensaje("[5] SALIR")
+    else:
+        mostrar_mensaje("OPCCION INVALIDA!!!")
+
+    sleep(1)

@@ -14,3 +14,5 @@ MANEJO DE PROYECTOS CON BUENAS PRACTICAS
 3. Instalacion de librerias (archivo requirements.txt)
     crear archivo requirements.txt
     pip install -r requirements.txt
+4. agregar el archivo ".gitignore"
+    ignorar el archivo VENV para que no se suba al repositorio: VENV/
