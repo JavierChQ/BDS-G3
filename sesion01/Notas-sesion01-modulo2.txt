@@ -1,0 +1,3 @@
+Encapsulamiento:
+- En Python solo existen variables publicas
+- Para proteger variables se coloca doble subguion al inicio d ela variable (__variable)
