@@ -20,11 +20,14 @@ class Empresa:
 
         self.cursor = self.db.cursor()
 
-        # VENTANA PRINCIPAL       
+        self.empresa_id = 0
+
+        # INTERFAZ
+        # Ventana principal      
         frame = LabelFrame(self.app, text="Registro de Empresas")
         frame.grid(row=0, column=0, columnspan=2, pady=10,padx=10)
         
-        # FORMULARIO
+        # Formulario
         lb_ruc = Label(frame, text="RUC")
         lb_ruc.grid(row=0, column=0)
         
@@ -37,6 +40,7 @@ class Empresa:
         self.txt_razon_social = Entry(frame)
         self.txt_razon_social.grid(row=0, column=3)
         
+        # Botones
         self.btn_insertar = Button(frame,text="Insertar Nueva Empresa", command=self.insertar)
         self.btn_insertar.grid(row=0, column=4)
         
@@ -46,7 +50,7 @@ class Empresa:
         self.btn_eliminar = Button(self.app,text="Eliminar Empresa",command=self.eliminar)
         self.btn_eliminar.grid(row=3, column=1)
         
-        # TABLA
+        # tabla
         self.tree = Treeview(self.app, columns=("RUC","Razón Social"))
         self.tree.heading("#0", text="ID")
         self.tree.heading("RUC", text="RUC")   
@@ -54,9 +58,35 @@ class Empresa:
         
         self.tree.grid(row=1, column=0,padx=20,pady=10,columnspan=2)
 
+        self.cargar_empresas()
+
     # METODOS
+
+    def cargar_empresas(self):
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+            
+        self.cursor.execute("select id,ruc,razon_social from empresa")
+        for row in self.cursor.fetchall():
+            self.tree.insert("",0,text=row[0],values=(row[1],row[2]))
+        
     def insertar(self):
-        pass
+        if self.empresa_id > 0:
+            self.actualizar()
+            return
+        
+        
+        if not self.txt_ruc.get() or not self.txt_razon_social.get():
+            messagebox.showwarning("Atención","Complete los campos")
+            return
+        
+        nueva_empresa = (self.txt_ruc.get(),self.txt_razon_social.get())
+        
+        query = "insert into empresa(ruc,razon_social) values(%s,%s)"
+        self.cursor.execute(query,nueva_empresa)
+        self.db.commit()
+        self.cargar_empresas()
+
     def editar(self):
         pass
     def eliminar(self):
