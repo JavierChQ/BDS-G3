@@ -86,8 +86,57 @@ class Empresa:
         self.cursor.execute(query,nueva_empresa)
         self.db.commit()
         self.cargar_empresas()
+        self.limpiar_datos()
 
     def editar(self):
-        pass
+        selected_row = self.tree.selection()
+        if not selected_row:
+            messagebox.showwarning("Atención","Seleccione una Empresa")
+            return
+        
+        self.empresa_id = self.tree.item(selected_row[0])["text"]
+        self.txt_ruc.delete(0,END)
+        self.txt_ruc.insert(0,self.tree.item(selected_row[0])["values"][0])
+        self.txt_razon_social.delete(0,END)
+        self.txt_razon_social.insert(0,self.tree.item(selected_row[0])["values"][1])
+        self.btn_insertar.config(text="Actualizar Empresa")
+
+    def actualizar(self):
+        nuevo_ruc = self.txt_ruc.get()
+        nueva_razon_social = self.txt_razon_social.get()
+        
+        empresa_actualizar = (nuevo_ruc,nueva_razon_social,self.empresa_id)
+        
+        if not nuevo_ruc or not nueva_razon_social:
+            messagebox.showwarning("Atención","Complete los campos")
+            return
+        
+        query = "update empresa set ruc=%s, razon_social=%s where id=%s"
+        self.cursor.execute(query,empresa_actualizar)
+        self.db.commit()
+        self.cargar_empresas()
+        self.limpiar_datos()
+
+    def limpiar_datos(self):
+        self.txt_ruc.delete(0,END)
+        self.txt_razon_social.delete(0,END)
+        self.empresa_id = 0
+        self.btn_insertar.config(text="Insertar Nueva Empresa")
+        
     def eliminar(self):
-        pass
+        selected_row = self.tree.selection()
+        if not selected_row:
+            messagebox.showwarning("Atención","Seleccione una Empresa")
+            return
+        
+        empresa_id = self.tree.item(selected_row[0])["text"]
+        
+        respuesta = messagebox.askyesno("Confirmación","¿Esta seguro que desea eliminar la Empresa?")
+        
+        if respuesta:
+            empresa_eliminar = (empresa_id,)
+            query = "delete from empresa where id=%s"
+            self.cursor.execute(query,empresa_eliminar)
+            self.db.commit()
+            self.cargar_empresas()
+            self.limpiar_datos()
