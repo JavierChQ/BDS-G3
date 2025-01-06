@@ -10,6 +10,16 @@ class Empresa:
         self.app.title("Gestión de Empresas")
         self.app.geometry("640x380")
 
+        # CONEXION CON LA BASE DE DATOS
+        self.db = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = 'mysqljavier',
+            database = 'db_proyecto_datag3'
+        )
+
+        self.cursor = self.db.cursor()
+
         # VENTANA PRINCIPAL       
         frame = LabelFrame(self.app, text="Registro de Empresas")
         frame.grid(row=0, column=0, columnspan=2, pady=10,padx=10)
